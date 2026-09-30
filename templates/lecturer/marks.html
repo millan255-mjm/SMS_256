@@ -1,0 +1,47 @@
+{% extends "dashboard_shell.html" %}
+{% block content %}
+<div class="page-header"><h1>Enter Marks</h1></div>
+
+<form method="get" class="filter-row">
+  <label>Course</label>
+  <select name="course_id" onchange="this.form.submit()">
+    <option value="">-- Select a course --</option>
+    {% for c in courses %}
+      <option value="{{ c.id }}" {% if c.id == course_id %}selected{% endif %}>{{ c.code }} - {{ c.name }}</option>
+    {% endfor %}
+  </select>
+</form>
+
+{% if course_id and students %}
+<form method="post" class="table-card">
+  <input type="hidden" name="course_id" value="{{ course_id }}">
+  <div class="filter-row" style="margin-bottom:14px;">
+    <label>Exam Type</label>
+    <select name="exam_type">
+      {% for opt in ["CA", "Assignment", "Midterm", "Final Exam"] %}
+        <option value="{{ opt }}">{{ opt }}</option>
+      {% endfor %}
+    </select>
+    <label>Max Score</label>
+    <input type="number" step="0.1" name="max_score" value="100" style="width:100px;">
+  </div>
+  <table>
+    <thead><tr><th>Student No.</th><th>Full Name</th><th>Score</th></tr></thead>
+    <tbody>
+      {% for s in students %}
+      <tr>
+        <td>{{ s.student_no }}</td>
+        <td>{{ s.full_name }}</td>
+        <td><input type="number" step="0.1" name="score_{{ s.id }}" value="0" style="width:100px;"></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="form-actions"><button type="submit" class="btn btn-primary">&#128190; Save Marks</button></div>
+</form>
+{% elif course_id %}
+<p class="muted">No students are enrolled in this course yet.</p>
+{% else %}
+<p class="muted">Select a course to load its enrolled students.</p>
+{% endif %}
+{% endblock %}

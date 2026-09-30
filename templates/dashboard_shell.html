@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ page_title }} — EduManage Pro{% endblock %}
+{% block body %}
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">&#127891; EduManage Pro</div>
+    <div class="role-label">{{ session_role_label }}</div>
+    <nav>
+      {% for item in nav_items %}
+        <a href="{{ url_for(item.endpoint) }}" class="nav-link {% if item.key == active %}active{% endif %}">
+          {{ item.icon }} {{ item.label }}
+        </a>
+      {% endfor %}
+    </nav>
+    <div class="sidebar-spacer"></div>
+    <div class="user-info">
+      <div class="user-name">{{ session_full_name }}</div>
+      <div class="user-username">@{{ session_username }}</div>
+    </div>
+    <a href="{{ url_for('auth.logout') }}" class="nav-link logout-link">&#9211; Logout</a>
+  </aside>
+  <main class="main-area">
+    <div class="topbar">
+      <div class="welcome">Welcome back, {{ session_full_name }}</div>
+      <div class="role-badge">{{ session.role|upper }}</div>
+    </div>
+    <div class="content">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+</div>
+{% endblock %}

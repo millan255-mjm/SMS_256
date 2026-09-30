@@ -1,0 +1,22 @@
+{% extends "dashboard_shell.html" %}
+{% block content %}
+<div class="page-header"><h1>Database Backup &amp; Restore</h1></div>
+<div class="form-card narrow">
+  <p class="muted">Download a full backup of the database, or restore from a previously
+     saved backup file. Restoring overwrites all current data.</p>
+  <a href="{{ url_for('superadmin.backup_download') }}" class="btn btn-primary">&#128190; Download Backup</a>
+
+  <hr class="divider">
+
+  <form method="post" action="{{ url_for('superadmin.backup_restore') }}" enctype="multipart/form-data"
+        onsubmit="return confirm('Restoring will overwrite the current database with the uploaded file. This cannot be undone. Continue?');">
+    <div class="form-row">
+      <label>Restore from backup file (.db)</label>
+      <input type="file" name="backup_file" accept=".db" required>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-warning">&#9851; Restore from Backup</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

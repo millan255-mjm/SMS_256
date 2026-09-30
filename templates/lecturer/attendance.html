@@ -1,0 +1,46 @@
+{% extends "dashboard_shell.html" %}
+{% block content %}
+<div class="page-header"><h1>Record Attendance</h1></div>
+
+<form method="get" class="filter-row">
+  <label>Course</label>
+  <select name="course_id" onchange="this.form.submit()">
+    <option value="">-- Select a course --</option>
+    {% for c in courses %}
+      <option value="{{ c.id }}" {% if c.id == course_id %}selected{% endif %}>{{ c.code }} - {{ c.name }}</option>
+    {% endfor %}
+  </select>
+  <label>Date</label>
+  <input type="date" name="date" value="{{ date }}" onchange="this.form.submit()">
+</form>
+
+{% if course_id and students %}
+<form method="post" class="table-card">
+  <input type="hidden" name="course_id" value="{{ course_id }}">
+  <input type="hidden" name="date" value="{{ date }}">
+  <table>
+    <thead><tr><th>Student No.</th><th>Full Name</th><th>Status</th></tr></thead>
+    <tbody>
+      {% for s in students %}
+      <tr>
+        <td>{{ s.student_no }}</td>
+        <td>{{ s.full_name }}</td>
+        <td>
+          <select name="status_{{ s.id }}">
+            {% for opt in ["Present", "Absent", "Late"] %}
+              <option value="{{ opt }}" {% if statuses.get(s.id, "Present") == opt %}selected{% endif %}>{{ opt }}</option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="form-actions"><button type="submit" class="btn btn-primary">&#128190; Save Attendance</button></div>
+</form>
+{% elif course_id %}
+<p class="muted">No students are enrolled in this course yet.</p>
+{% else %}
+<p class="muted">Select a course to load its enrolled students.</p>
+{% endif %}
+{% endblock %}

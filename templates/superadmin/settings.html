@@ -1,0 +1,23 @@
+{% extends "dashboard_shell.html" %}
+{% block content %}
+<div class="page-header"><h1>System Settings</h1></div>
+<div class="form-card narrow">
+  <form method="post">
+    <div class="form-row">
+      <label>Institution Name</label>
+      <input type="text" name="institution_name" value="{{ settings.institution_name }}">
+    </div>
+    <div class="form-row">
+      <label>Academic Year</label>
+      <input type="text" name="academic_year" value="{{ settings.academic_year }}">
+    </div>
+    <div class="form-row">
+      <label>Contact Email</label>
+      <input type="text" name="contact_email" value="{{ settings.contact_email }}">
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Save Settings</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "dashboard_shell.html" %}
+{% block content %}
+<div class="page-header"><h1>My Profile</h1></div>
+
+<div class="form-card">
+  <form method="post">
+    <div class="form-row"><label>Full Name</label><input type="text" name="full_name" value="{{ student.full_name or '' }}"></div>
+    <div class="form-row"><label>Email</label><input type="text" name="email" value="{{ student.email or '' }}"></div>
+    <div class="form-row"><label>Phone</label><input type="text" name="phone" value="{{ student.phone or '' }}"></div>
+    <div class="static-row"><span>Student No.</span><span>{{ student.student_no }}</span></div>
+    <div class="static-row"><span>Class</span><span>{{ class_name or "\u2014" }}</span></div>
+    <div class="static-row"><span>Gender</span><span>{{ student.gender or "\u2014" }}</span></div>
+    <div class="static-row"><span>Date of Birth</span><span>{{ student.dob or "\u2014" }}</span></div>
+    <div class="form-actions"><button type="submit" name="form" value="profile" class="btn btn-primary">Save Changes</button></div>
+  </form>
+</div>
+
+<div class="form-card narrow">
+  <h2>Change Password</h2>
+  <form method="post">
+    <div class="form-row"><label>New Password</label><input type="password" name="password1"></div>
+    <div class="form-row"><label>Confirm Password</label><input type="password" name="password2"></div>
+    <div class="form-actions"><button type="submit" name="form" value="password" class="btn btn-primary">Update Password</button></div>
+  </form>
+</div>
+{% endblock %}

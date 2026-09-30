@@ -1,0 +1,26 @@
+{% extends "dashboard_shell.html" %}
+{% block content %}
+<div class="page-header"><h1>My Attendance</h1></div>
+<div class="stat-grid stat-grid-small">
+  <div class="stat-card" style="--stat-color: {{ rate_color }};">
+    <div class="stat-value">{{ rate }}%</div>
+    <div class="stat-label">Attendance Rate</div>
+  </div>
+  <div class="stat-card" style="--stat-color: #4f8cff;">
+    <div class="stat-value">{{ total }}</div>
+    <div class="stat-label">Total Records</div>
+  </div>
+</div>
+<div class="table-card">
+  <table>
+    <thead><tr><th>Date</th><th>Course</th><th>Status</th></tr></thead>
+    <tbody>
+      {% for r in records %}
+      <tr><td>{{ r.date }}</td><td>{{ r.course_name }}</td><td>{{ r.status }}</td></tr>
+      {% else %}
+      <tr><td colspan="3" class="empty-row">No attendance records yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

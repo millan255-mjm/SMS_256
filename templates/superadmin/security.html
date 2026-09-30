@@ -1,0 +1,31 @@
+{% extends "dashboard_shell.html" %}
+{% block content %}
+<div class="page-header"><h1>Security &amp; Permissions</h1></div>
+
+<div class="form-card">
+  <h2>Role Permission Matrix</h2>
+  {% for role, desc in perms %}
+  <div class="perm-row">
+    <div class="perm-role">{{ role }}</div>
+    <div class="perm-desc">{{ desc }}</div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="form-card narrow">
+  <h2>Change My Password</h2>
+  <form method="post">
+    <div class="form-row">
+      <label>New Password</label>
+      <input type="password" name="password1" required>
+    </div>
+    <div class="form-row">
+      <label>Confirm Password</label>
+      <input type="password" name="password2" required>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Update Password</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
