@@ -35,13 +35,15 @@ def login():
     if request.method == "POST":
         username = request.form.get("username", "").strip()
         password = request.form.get("password", "")
-        user = fetch_one("SELECT * FROM users WHERE username=?", (username,))
+        role = request.form.get("role", "")
+
+        user = fetch_one("SELECT * FROM users WHERE username=? AND role=?", (username, role))
         if not user or user["password"] != hash_pw(password):
-            flash("Invalid username or password.", "error")
-            return render_template("login.html", institution_name=get_setting("institution_name", "EduManage Institute"))
+            flash("Invalid username or password for the selected role.", "error")
+            return render_template("login.html", institution_name=get_setting("institution_name", "ARUSHA UNIVERSITY OF HEALTH AND ALLIED SCIENCE"))
         if user.get("status") == "suspended":
             flash("This account has been suspended.", "error")
-            return render_template("login.html", institution_name=get_setting("institution_name", "EduManage Institute"))
+            return render_template("login.html", institution_name=get_setting("institution_name", "ARUSHA UNIVERSITY OF HEALTH AND ALLIED SCIENCE"))
 
         session.clear()
         session["user_id"] = user["id"]
@@ -50,10 +52,10 @@ def login():
         if not endpoint:
             flash(f"Role '{user['role']}' is not recognized.", "error")
             session.clear()
-            return render_template("login.html", institution_name=get_setting("institution_name", "EduManage Institute"))
+            return render_template("login.html", institution_name=get_setting("institution_name", "ARUSHA UNIVERSITY OF HEALTH AND ALLIED SCIENCE"))
         return redirect(url_for(endpoint))
 
-    return render_template("login.html", institution_name=get_setting("institution_name", "EduManage Institute"))
+    return render_template("login.html", institution_name=get_setting("institution_name", "ARUSHA UNIVERSITY OF HEALTH AND ALLIED SCIENCE"))
 
 
 @auth_bp.route("/logout")

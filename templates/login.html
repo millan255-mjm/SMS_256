@@ -7,13 +7,42 @@
     <h1>{{ institution_name }}</h1>
     <p class="muted"></p>
     <form method="post">
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
+      <div class="role-btn active" onclick="selectRole('student', this)"
+      style="width:calc(50% - 4px); box-sizing:border-box; padding:11px 8px; border-radius:10px; border:1px solid #33395a; background:#4f7cff; color:#fff; font-weight:700; font-size:13px; text-align:center; cursor:pointer;">
+      Student
+    </div>
+    <div class="role-btn" onclick="selectRole('lecturer', this)"
+      style="width:calc(50% - 4px); box-sizing:border-box; padding:11px 8px; border-radius:10px; border:1px solid #33395a; background:#242a44; color:#9aa0bd; font-weight:700; font-size:13px; text-align:center; cursor:pointer;">
+      Lecturer
+    </div>
+    <div class="role-btn" onclick="selectRole('admin', this)"
+      style="width:calc(50% - 4px); box-sizing:border-box; padding:11px 8px; border-radius:10px; border:1px solid #33395a; background:#242a44; color:#9aa0bd; font-weight:700; font-size:13px; text-align:center; cursor:pointer;">
+      Admin
+    </div>
+    <div class="role-btn" onclick="selectRole('superadmin', this)"
+      style="width:calc(50% - 4px); box-sizing:border-box; padding:11px 8px; border-radius:10px; border:1px solid #33395a; background:#242a44; color:#9aa0bd; font-weight:700; font-size:13px; text-align:center; cursor:pointer;">
+      Super Admin
+    </div>
+  </div>
+  <input type="hidden" name="role" id="roleInput" value="student">
       <label>Username</label>
       <input type="text" name="username" autofocus required>
       <label>Password</label>
       <input type="password" name="password" required>
       <button type="submit" class="btn btn-primary btn-block">Sign In</button>
     </form>
-    
+    <script>
+       function selectRole(role, el) {
+        document.getElementById('roleInput').value = role;
+        document.querySelectorAll('.role-btn').forEach(function(btn) {
+         btn.style.background = '#242a44';
+         btn.style.color = '#9aa0bd';
+        });
+        el.style.background = '#4f7cff';
+        el.style.color = '#fff';
+       }
+     </script>
   </div>
 </div>
 {% endblock %}
